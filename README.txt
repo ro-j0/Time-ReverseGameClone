@@ -9,3 +9,11 @@ Prototype Assets and mechanics pulled from (with modification): https://gamedeva
 Teleport Sound: https://freesound.org/s/321829/
 
 Teleport Anim: https://bybibo.itch.io/teleport-in-animation
+
+
+
+Contributors: 
+
+Stryker Buffington: Lead Programmer and Level Designer
+Lauren Nakamura: Artist
+Rohan Jhangiani: Sound, Level Implementation, Programmer. 
