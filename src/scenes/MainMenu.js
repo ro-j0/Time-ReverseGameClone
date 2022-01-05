@@ -5,12 +5,56 @@ class MainMenu extends Phaser.Scene {
     }
 
     preload () {
+        if (this.play){
+            return;
+        }
+
+        var progressBar = this.add.graphics();
+        var progressBox = this.add.graphics();
+        progressBar.x = 240;
+        progressBox.x = 240;
+        progressBar.y = 80;
+        progressBox.y = 80;
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 320, 50);
+
+        var width = game.config.width;
+        var height = game.config.height;
+        var loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 50,
+            text: 'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+
+        
+        this.load.on('progress', function (value) {
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+
+        this.load.on('complete', function () {
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+        });
+
         this.load.image('particle', './assets/sprites/5x5_white.png');
         this.load.image('backdrop', './assets/tiles/repairsky.png');
         this.load.image('robot', './assets/sprites/bipedal-unit1.png')
         this.load.image('dialoguebg', './assets/sprites/dialoguebg.png')
         this.load.image('dialoguebox', './assets/sprites/dialoguebox.png')
         this.load.image('character', './assets/sprites/TempGirl.png')
+        this.load.image('intro1', './assets/sprites/intro1.png')
+        this.load.image('intro2', './assets/sprites/intro2.png')
+        this.load.image('intro3', './assets/sprites/intro3.png')
+        this.load.image('intro4', './assets/sprites/intro4.png')
+        this.load.image('intro5', './assets/sprites/intro5.png')
 
         loadFont("cyberfunk", "./assets/fonts/Cyberfunk.ttf");
         loadFont("Orbitron", "./assets/fonts/Orbitron-Bold.ttf");
@@ -34,20 +78,23 @@ class MainMenu extends Phaser.Scene {
         
         this.load.image('door', './assets/sprites/door.png');
 
-        this.load.image("background", "./assets/sprites/BG.png");
+        // this.load.image("background", "./assets/sprites/BG.png");
+        this.load.image("background", "./assets/sprites/Menu.png");
+        this.load.image("playText", "./assets/sprites/playText.png");
+        this.load.image("creditsText", "./assets/sprites/creditsText.png");
     }
 
     create() {
 
         this.background = this.add.image(game.config.width/2, game.config.height/2, 'background').setOrigin(0.5, 0.5);
 
-        this.background.scaleX = 0.7;
-        this.background.scaleY = 0.7;
+        this.background.scaleX = 1.1;
+        this.background.scaleY = 1.1;
 
         this.creditsConfig = {
             fontFamily: 'Orbitron',
             fontSize: '56px',
-            color: '#faf5c8',
+            color: '#ff0000',
             align: 'right',
             padding: {
             top: 5,
@@ -56,12 +103,13 @@ class MainMenu extends Phaser.Scene {
         }
 
         // Add Play Button to the Screen
-        this.play = this.add.text(game.config.width/3 , 3*game.config.height/4 - 10, "PLAY", this.creditsConfig).setOrigin(0.5, 0.5);
+        //this.play = this.add.text(game.config.width/2 -40, game.config.height/2+30, "PLAY", this.creditsConfig).setOrigin(1, 0.5);
+        this.play = this.add.image(game.config.width/2 -45, game.config.height/2+40, "playText").setOrigin(1, 0.5);
         this.play.setInteractive();
         this.play.on('pointerover', () => { enterButtonHoverState(this.play); });
         this.play.on('pointerout', () => { enterButtonRestState(this.play); });
         this.play.on('pointerdown', () => { 
-            this.scene.start("lab"); 
+            this.scene.start("introScene"); 
         });
 
         // Add Tutorial Button to the Screen
@@ -75,7 +123,8 @@ class MainMenu extends Phaser.Scene {
         // });
 
         // Add Credits Button to the Screen
-        this.credits = this.add.text((2 * game.config.width)/3 -20, 3*game.config.height/4 - 10, "CREDITS", this.creditsConfig).setOrigin(0.5, 0.5);
+        this.credits = this.add.image(game.config.width/2-10, game.config.height/2+40, "creditsText").setOrigin(0, 0.5);
+        //this.credits = this.add.text(game.config.width/2, game.config.height/2+30, "CREDITS", this.creditsConfig).setOrigin(0, 0.5);
         this.credits.setInteractive();
         this.credits.on('pointerover', () => { enterButtonHoverState(this.credits); });
         this.credits.on('pointerout', () => { enterButtonRestState(this.credits); });
@@ -84,8 +133,3 @@ class MainMenu extends Phaser.Scene {
         });
     }
 }
-
-
-
-
-

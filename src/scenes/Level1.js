@@ -150,7 +150,7 @@ class Level1 extends Phaser.Scene {
         }
         
         // Add UI Element to the screen
-        this.instructions = this.add.text(500 , 280, "Press Space to Reverse Time", this.scoreConfig).setOrigin(0, 0);
+        this.instructions = this.add.text(500 , 280, "Press SPACE to Reverse Time", this.scoreConfig).setOrigin(0, 0);
         this.instructions.setScrollFactor(0, 0);
         this.instructions.alpha = 0;
 
@@ -169,7 +169,7 @@ class Level1 extends Phaser.Scene {
             labDoor.setOrigin(0.5, 0.5);
             labDoor.body.allowGravity = false;
             this.overlapCollider = this.physics.add.overlap(labDoor, this.player, this.finishLevel);
-            this.instructions2 = this.add.text(1850 , 900, "Return to the Lab", this.hintConfig).setOrigin(0, 0);
+            this.instructions2 = this.add.text(1850 , 900, "← Return to the Lab", this.hintConfig).setOrigin(0, 0);
             this.clock = this.time.delayedCall(3000, () => {
                 this.instructions2.alpha = 0;
             }, null, this);

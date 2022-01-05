@@ -115,7 +115,7 @@ class Level5 extends Phaser.Scene {
         this.teleportSound = this.sound.add("teleportSound", {loop: false, volume: 0.7});
 
         this.scoreConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'cyberfunk',
             fontSize: '30px',
             color: '#faf5c8',
             align: 'right',
@@ -126,7 +126,7 @@ class Level5 extends Phaser.Scene {
         }
 
         this.hintConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'cyberfunk',
             fontSize: '60px',
             color: '#faf5c8',
             align: 'right',
@@ -153,7 +153,8 @@ class Level5 extends Phaser.Scene {
         
         this.finishLevel = () => {
             progress = 5;
-            this.scene.start("menuScene");
+            soundEffects["footsteps"].stop();
+            this.scene.start("lab");
         }
         
         this.reachedObjective = () => {
